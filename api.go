@@ -21,6 +21,34 @@ type Session struct {
 	New bool `json:"new"`
 }
 
+// Intent ecapsulates the intent type and slots/values of the request.
+type Intent struct {
+	Name string `json:"name"`
+}
+
+// Request encapsulates the user request.
+//
+// The Alexa service sends your service a request using one of the standard request
+// types when users engage with your skill by voice. There are three request types:
+//
+// LaunchRequest: Sent when the user invokes your skill without providing a specific intent.
+// IntentRequest: Sent when the user makes a request that corresponds to one of the intents
+// defined in your intent schema.
+// SessionEndedRequest: Sent when the current skill session ends for any reason other than
+// your code closing the session.
+// CanFulfillIntentRequest: Sent when the Alexa service is querying a skill to determine
+// whether the skill can understand and fulfill the intent request with detected slots,
+// before actually asking the skill to take action.
+// If you implement the AudioPlayer, PlaybackController, or GameEngine interface, your
+// skill receives additional requests beyond the three standard request types. See
+// AudioPlayer Interface, PlaybackController Interface, and GameEngine Interface for details.
+//
+// For the overall request format, see JSON Interface Reference for Custom Skills - Request Format.
+type Request struct {
+	Type   string  `json:"type"`
+	Intent *Intent `json:"intent"`
+}
+
 // RequestEnvelope encapsulates the top-level request request object.
 // All requests include the version, context, and request objects at the top level.
 // The session object is included for all standard requests, but it is not included
